@@ -6,11 +6,10 @@ const alive = {
     'version': pjson.version
 };
 
-module.exports = (app) => {
-    /***
-     * Health Route
-     */
-    app.get('/health', async (req, res) => {
+class HealthController {
+    async health(req, res) {
         res.status(200).send(alive);
-    });
-};
+    }
+}
+
+module.exports = new HealthController();

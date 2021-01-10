@@ -1,45 +1,55 @@
 const UserService = require('../services/user-service');
-const { logger } = require('../../util/logger');
 
 class UserController {
-    async create(User) {
+    async create(req, res, next) {
         try {
-            return await UserService.create(User);
+            let user = req.body;
+            const result = await UserService.create(user);
+            res.status(201).send(result);
         } catch (e) {
-            logger.error(e.message);
-            logger.error(e.stack);
+            next(new Error(e.message));
         }
     }
 
-    async findById(id) {
+    async findById(req, res, next) {
         try {
-            return await UserService.findById(id);
+            const {
+                id
+            } = req.params;
+            const result = await UserService.findById(id);
+            res.status(200).send(result);
         } catch (e) {
-            logger.error(e.message);
-            logger.error(e.stack);
+            next(new Error(e.message));
         }
     }
 
-    async findByIdAndUpdate(id, User) {
+    async findByIdAndUpdate(req, res, next) {
         try {
-            return await UserService.findByIdAndUpdate(id, User);
+            const id = req.params.id;
+            let user = req.body;
+            user = await UserService.findByIdAndUpdate(id, user);
+            res.status(200).send(user);
         } catch (e) {
-            logger.error(e.message);
-            logger.error(e.stack);
+            next(new Error(e.message));
         }
     }
 
-    async delete(id) {
+    async delete(req, res, next) {
         try {
-            return await UserService.delete(id);
+            const id = req.params.id;
+            const result = await UserService.delete(id);
+            res.status(200).send(result);
         } catch (e) {
-            logger.error(e.message);
-            logger.error(e.stack);
+            next(new Error(e.message));
         }
     }
 
-    async find(query, options) {
+    async find(req, res, next) {
         try {
+            const {
+                query,
+                options
+            } = req.body;
             const results = await UserService.find(query, options);
             let result = {};
             result.data = results.docs;
@@ -47,10 +57,9 @@ class UserController {
             result.pagination = {
                 ...results
             };
-            return result;
+            res.status(200).send(result);
         } catch (e) {
-            logger.error(e.message);
-            logger.error(e.stack);
+            next(new Error(e.message));
         }
     }
 }

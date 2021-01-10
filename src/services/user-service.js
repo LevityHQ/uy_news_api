@@ -1,13 +1,16 @@
 const UserModel = require('../models/user-model');
 const { logger } = require('../../util/logger');
+const PasswordService = require('./password-service');
 
 class UserService {
-    async create(User) {
+    async create(user) {
         try {
-            const userModel = new UserModel(User);
+            user.password = await PasswordService.hashPassword(user.password);
+            const userModel = new UserModel(user);
             return await userModel.save();
         } catch (e) {
             logger.error(e);
+            throw e;
         }
     }
 
@@ -16,6 +19,7 @@ class UserService {
             return await UserModel.findById(id).exec();
         } catch (e) {
             logger.error(e);
+            throw e;
         }
     }
 
@@ -29,6 +33,7 @@ class UserService {
             });
         } catch (e) {
             logger.error(e);
+            throw e;
         }
     }
 
@@ -40,6 +45,17 @@ class UserService {
             return await UserModel.deleteOne(filter);
         } catch (e) {
             logger.error(e);
+            throw e;
+        }
+    }
+
+    async findUserByEmail(email) {
+        const query = {'email': email};
+        try{
+            return await UserModel.findOne(query);
+        } catch (e) {
+            logger.error(e);
+            throw e;
         }
     }
 
@@ -48,6 +64,7 @@ class UserService {
             return await UserModel.paginate(query, options);
         } catch (e) {
             logger.error(e);
+            throw e;
         }
     }
 }
