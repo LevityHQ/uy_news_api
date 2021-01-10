@@ -1,5 +1,5 @@
 const logger = require('../../util/logger');
-const UserController = require('../controller/user-controller');
+const UserController = require('../controllers/user-controller');
 
 module.exports = function (app) {
     app.get('/user/:id', async (req, res) => {
