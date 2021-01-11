@@ -1,6 +1,5 @@
 FROM node:14
-WORKDIR /usr/src/app
-VOLUME /uy_news_api
+WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
 

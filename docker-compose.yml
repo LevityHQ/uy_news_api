@@ -5,7 +5,7 @@ services:
     restart: always
     build: .
     volumes:
-      - ../volumes/uy_news_api/logs:/logs
+      - ../volumes/uy_news_api/logs:/app/logs
     ports:
       - "9700:9700"
     external_links:
