@@ -1,4 +1,2 @@
 node_modules
-/etc/logs
-/etc/mongodb
 npm-debug.log
