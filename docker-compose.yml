@@ -1,0 +1,19 @@
+version: "2"
+services:
+  app:
+    container_name: uy_news_api
+    restart: always
+    build: .
+    volumes:
+      - ../volumes/uy_news_api/logs:/logs
+    ports:
+      - "9700:9700"
+    external_links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    volumes:
+      - ../volumes/mongodb/data/db:/data/db
+    ports:
+      - "27017:27017"
