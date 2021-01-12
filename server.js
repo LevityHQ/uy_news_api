@@ -12,6 +12,8 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const healthRoute = require('./src/routes/health-routes');
 const authRoutes = require('./src/routes/auth-routes');
 const userRoutes = require('./src/routes/user-routes');
+const feedRoutes = require('./src/routes/feed-routes');
+const newsRoutes = require('./src/routes/news-routes');
 
 (function connect () {
     mongoose.connect(MONGODB_URI,{
@@ -35,6 +37,8 @@ app.use(loggerMiddleware);
 app.use('/health', healthRoute);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/feed', feedRoutes);
+app.use('/news', newsRoutes);
 app.use(errorLoggerMiddleware);
 
 app.listen(PORT, () => logger.info(`${pJson.name} - is live @ ${PORT} on ${ENVIRONMENT}`));
