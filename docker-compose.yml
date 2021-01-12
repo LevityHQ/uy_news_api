@@ -8,12 +8,3 @@ services:
       - ../volumes/uy_news_api/logs:/app/logs
     ports:
       - "9700:9700"
-    external_links:
-      - mongo
-  mongo:
-    container_name: mongo
-    image: mongo:latest
-    volumes:
-      - ../volumes/mongodb/data/db:/data/db
-    ports:
-      - "27017:27017"
