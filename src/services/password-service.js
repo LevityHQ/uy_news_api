@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt');
 
 class PasswordService{
-    async hashPassword(passowrd){
+    async hashPassword(password){
         const saltRounds = 10;
-        return await bcrypt.hash(passowrd, saltRounds);
+        return await bcrypt.hash(password, saltRounds);
     }
 
     async comparePasswords(password, passwordHash){
